@@ -8,9 +8,9 @@ export default function MainRoutes() {
     return (
 
         <Routes>
-        <Route path='/' element={<Login/>}/>
-        <Route path='/home' element={<Home/>}/>
-        <Route path='/produto' element={<Produto/>}/>
+            <Route path='/' element={<Login/>}/>
+            <Route path='/home' element={<Home/>}/>
+            <Route path='/produto' element={<Produto/>}/>
         </Routes>
 
     );

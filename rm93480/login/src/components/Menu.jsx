@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 export default function Menu(){
 
@@ -13,22 +13,22 @@ export default function Menu(){
     const usuario = sessionStorage.getItem("usuario-validado");
 
 
-    return(
+    return (
         <div>
-            <ul>
-                <li>
-                    <Link to="/">Login</Link> 
-                </li>
-                <li>
-                    <Link to="/home">Home</Link>
-                </li>
-                <li>
-                    <Link to="/produto">Produto</Link>
-                </li>
-                <li>
-                    <button onClick={logout}> {usuario} - Logout </button>
-                </li>
-            </ul>
+          <ul>
+            <li>
+              <Link to="/">Login</Link>
+            </li>
+            <li>
+              <Link to="/home">Home</Link>
+            </li>
+            <li>
+              <Link to="/produto">Produto</Link>
+            </li>
+            <li>
+              <button onClick={logout}>{usuario} - Logout</button>
+            </li>
+          </ul>
         </div>
     );
 }

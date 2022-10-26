@@ -1,23 +1,22 @@
-import {React, useEffect} from 'react';
+import React from "react";
+import { useEffect } from "react";
 
-export default function Home(){
+export default function Home() {
 
-    // Verifica se está logado
-    const verificar = sessionStorage.getItem("usuario-validado")
+  const verificar = sessionStorage.getItem("usuario-validado");
 
-    useEffect(() => {
-        if(verificar == null){
-            window.location = "/";
-        }
-    },[])
-    //
+  useEffect(() => {
 
-    return(
-        <div>
+    if (verificar == null) {
+      window.location = "/";
+    }
+    
+  }, []);
 
-            Home
-            <p>Bem vindo usuário: {verificar}</p>
-
-        </div>
-    );
+  return (
+    <div>
+      Home
+      <p>Bem vindo usuário : {verificar}</p>
+    </div>
+  );
 }
