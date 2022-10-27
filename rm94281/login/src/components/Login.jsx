@@ -1,10 +1,9 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from 'react';
 
 export default function Login() {
   const [usuario, setUsuario] = useState({
-    login: "",
-    senha: "",
+    login: '',
+    senha: '',
   });
 
   const handleChange = (e) => {
@@ -15,26 +14,27 @@ export default function Login() {
     e.preventDefault();
 
     const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(usuario),
     };
 
     const response = await fetch(
-      "http://localhost:8080/ControleAcesso/rest/login/",
+      'http://localhost:8080/ControleAcesso/rest/login/',
       requestOptions
     );
 
     const data = await response.json();
 
     if (data.login) {
-      sessionStorage.setItem("usuario-validado", data.login);
+      sessionStorage.setItem('usuario-validado', data.login);
+      sessionStorage.setItem('usuarioObj', JSON.stringify(data));
     }
 
     if (data) {
-      window.location = "/home";
+      window.location = '/home';
     } else {
-      window.location = "/";
+      window.location = '/';
     }
   };
 

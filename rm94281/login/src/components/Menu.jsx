@@ -1,30 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Menu() {
   const logout = () => {
-    sessionStorage.removeItem("usuario-validado");
-    window.location = "/";
+    sessionStorage.removeItem('usuario-validado');
+    window.location = '/';
   };
 
-  const usuario = sessionStorage.getItem("usuario-validado");
+  const usuario = sessionStorage.getItem('usuario-validado');
 
   return (
     <div>
-      <ul>
-        <li>
-          <Link to="/">Login</Link>
-        </li>
-        <li>
-          <Link to="/home">Home</Link>
-        </li>
-        <li>
-          <Link to="/produto">Produto</Link>
-        </li>
-        <li>
-          <button onClick={logout}>{usuario} - Logout</button>
-        </li>
-      </ul>
+      <Link to="/">Login</Link> | <Link to="/home">Home</Link> | 
+      <Link to="/produto">Produto</Link> |
+      <button
+        style={usuario ? { display: 'inline' } : { display: 'none' }}
+        onClick={logout}>
+        {usuario} - Logout
+      </button>
     </div>
   );
 }

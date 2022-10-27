@@ -1,8 +1,8 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 export default function Home() {
   const verificar = sessionStorage.getItem("usuario-validado");
+  const usuario = JSON.parse(sessionStorage.getItem("usuarioObj"));
 
   useEffect(() => {
     if (verificar == null) {
@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div>
       Home
-      <p>Bem vindo usuário : {verificar}</p>
+      <p>Bem vindo usuário : {usuario.login}</p>
     </div>
   );
 }
