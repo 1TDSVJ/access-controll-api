@@ -1,53 +1,54 @@
 package br.com.fiap.dao;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import br.com.fiap.factory.ConectionFactory;
 import br.com.fiap.to.UsuarioTO;
 
 public class UsuarioDAO {
-	public static List<UsuarioTO> listaUsuario;
+
+	private Connection con = null;
 
 	public UsuarioDAO() {
-		if (listaUsuario == null) {
-			listaUsuario = new ArrayList<UsuarioTO>();
-			
-			UsuarioTO user = new UsuarioTO();
-			user.setLogin("Selva");
-			user.setSenha("12345");
-			listaUsuario.add(user);
-			
-			user = new UsuarioTO();
-			user.setLogin("2");
-			user.setSenha("2");
-			listaUsuario.add(user);
-			
-			user = new UsuarioTO();
-			user.setLogin("3");
-			user.setSenha("3");
-			listaUsuario.add(user);
-			
-			user = new UsuarioTO();
-			user.setLogin("4");
-			user.setSenha("4");
-			listaUsuario.add(user);
-			
-			user = new UsuarioTO();
-			user.setLogin("5");
-			user.setSenha("5");
-			listaUsuario.add(user);
-		}
-
+		this.con = new ConectionFactory().getConnection();
 	}
 
 	public UsuarioTO loginDAO(UsuarioTO u) {
-		for (int i = 0; i < listaUsuario.size(); i++) {
-			if (listaUsuario.get(i).getLogin().equals(u.getLogin())
-					&& listaUsuario.get(i).getSenha().equals(u.getSenha())) {
-				System.out.println("USU�RIO : " + listaUsuario.get(i).getLogin() + " LOGOU!");
-				return listaUsuario.get(i);
+
+		PreparedStatement ps = null;
+
+		String sqlQuery = "SELECT * FROM T_USUARIO WHERE LOGIN = ? AND SENHA = ?";
+
+		try {
+			ps = con.prepareStatement(sqlQuery);
+
+			ps.setString(1, u.getLogin());
+			ps.setString(2, u.getSenha());
+
+			ResultSet rs = ps.executeQuery();
+
+			UsuarioTO ut = null;
+
+			while (rs.next()) {
+				ut = new UsuarioTO();
+				ut.setLogin(rs.getString(2));
+				ut.setSenha(rs.getString(3));
 			}
+			if (ut != null) {
+				rs.close();
+				ps.close();
+				con.close();
+				System.out.println("Usuário " + ut.getLogin() + " logou!");
+				return ut;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		System.out.println("USU�RIO : " + u.getLogin() + " N�O VALIDADO!");
+		System.out.println( "Usuário " + u.getLogin() + " não validado!");
 		return null;
 	}
+
 }
