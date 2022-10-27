@@ -12,17 +12,16 @@ export default function Menu() {
   return (
     <div>
       <ul>
-        <li>
+        {usuario === null ? (<li>
           <Link to="/">Login</Link>
-        </li>
+        </li>) : (<li>
+          <button onClick={logout}>{usuario} - Logout</button>
+        </li>)}
         <li>
           <Link to="/home">Home</Link>
         </li>
         <li>
           <Link to="/produto">Produto</Link>
-        </li>
-        <li>
-          <button onClick={logout}>{usuario} - Logout</button>
         </li>
       </ul>
     </div>
